@@ -1,0 +1,101 @@
+[gd_scene load_steps=10 format=3 uid="uid://cmtilparpmvao"]
+
+[ext_resource type="Script" path="res://Graph/Elements/GraphNode.gd" id="1_0tb2b"]
+[ext_resource type="Theme" uid="uid://ehkojj0kn5um" path="res://Graph/Elements/GraphNode.tres" id="1_b52n8"]
+[ext_resource type="StyleBox" uid="uid://b2v5vnd6mfnn2" path="res://Graph/Elements/GraphNodeHighlight.tres" id="1_rntn6"]
+[ext_resource type="Script" path="res://Graph/Elements/TitleBox.gd" id="2_601cj"]
+[ext_resource type="Script" path="res://Graph/Elements/TitleEdit.gd" id="3_c1ojs"]
+[ext_resource type="Script" path="res://Graph/Elements/PropertyBox.gd" id="4_1isig"]
+[ext_resource type="Script" path="res://Graph/Elements/PropertyEdit.gd" id="5_h0djl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bwh3"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1yukb"]
+
+[node name="GraphNode" type="Panel"]
+anchors_preset = -1
+anchor_right = 0.152
+anchor_bottom = 0.387
+offset_right = -0.104004
+offset_bottom = 0.223984
+focus_mode = 1
+mouse_default_cursor_shape = 13
+theme = ExtResource("1_b52n8")
+theme_override_styles/panel = ExtResource("1_rntn6")
+script = ExtResource("1_0tb2b")
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleBox" type="Panel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 13
+theme_override_styles/panel = SubResource("StyleBoxFlat_8bwh3")
+script = ExtResource("2_601cj")
+
+[node name="Label" type="Label" parent="VBoxContainer/TitleBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/TitleBox"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_c1ojs")
+
+[node name="Property" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 13
+script = ExtResource("4_1isig")
+
+[node name="Label" type="Label" parent="VBoxContainer/Property"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Property"
+label_settings = SubResource("LabelSettings_1yukb")
+vertical_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/Property"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_h0djl")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="focus_exited" from="VBoxContainer/TitleBox/TextEdit" to="VBoxContainer/TitleBox/TextEdit" method="_on_focus_exited"]
+[connection signal="gutter_removed" from="VBoxContainer/TitleBox/TextEdit" to="VBoxContainer/TitleBox/TextEdit" method="_on_gutter_removed"]
+[connection signal="focus_exited" from="VBoxContainer/Property/TextEdit" to="VBoxContainer/Property/TextEdit" method="_on_focus_exited"]
+[connection signal="gutter_removed" from="VBoxContainer/Property/TextEdit" to="VBoxContainer/Property/TextEdit" method="_on_gutter_removed"]
